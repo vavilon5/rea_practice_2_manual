@@ -3,7 +3,7 @@ Number = int | float
 
 
 def add(a: Number, b: Number) -> Number:
-    return a + b # производим сложение
+    return a + b  # производим сложение
 
 
 def subtract(a: Number, b: Number) -> Number:
