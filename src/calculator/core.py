@@ -19,6 +19,7 @@ def divide(a: Number, b: Number) -> float:
         raise ZeroDivisionError("Деление на ноль невозможно")
     return a / b
 
+
 def power(a: Number, b: Number) -> Number:
     return a**b
 
@@ -27,4 +28,3 @@ def modulo(a: Number, b: Number) -> Number:
     if b == 0:
         raise ZeroDivisionError("Деление на ноль невозможно")
     return a % b
-

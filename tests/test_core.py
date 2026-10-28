@@ -27,7 +27,6 @@ def test_divide_by_zero():
         divide(1, 0)
 
 
-
 def test_power():
     assert power(2, 10) == 1024
 
