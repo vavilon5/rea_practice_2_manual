@@ -1,10 +1,12 @@
-from calculator.core import Number, add, divide, multiply, subtract
+from calculator.core import Number, add, divide, multiply, subtract, power, modulo
 
 OPERATIONS = {
     "+": add,
     "-": subtract,
     "*": multiply,
-    "/": divide
+    "/": divide,
+    "%": modulo,
+    "^": power,
 }
 
 

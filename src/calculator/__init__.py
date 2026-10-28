@@ -1,4 +1,4 @@
-from calculator.core import add, divide, multiply, subtract
+from calculator.core import add, divide, modulo, multiply, power, subtract
 from calculator.expression import evaluate
 
 __version__ = "1.1.0"
