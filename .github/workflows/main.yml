@@ -54,5 +54,7 @@ jobs:
       - name: Merge pull request
         run: gh pr merge ${{ github.event.pull_request.number }} --merge
       # Слияние от имени GITHUB_TOKEN не запускает новые workflow, поэтому запускаем CI на main явно
-      - name: Run CI on main
-        run: gh workflow run main.yml --ref main
+      - name: Run CI and docs on main
+        run: |
+          gh workflow run main.yml --ref main
+          gh workflow run docs.yml --ref main

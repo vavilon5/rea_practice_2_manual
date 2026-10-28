@@ -1,0 +1,42 @@
+name: Docs
+
+on:
+  push:
+    branches: [main, development, "release/**", release]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs
+  cancel-in-progress: false
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -e . -r requirements-dev.txt
+      - name: Generate API documentation
+        run: |
+          pdoc calculator -o site
+          mkdir -p site/guide
+          cp README.md docs/*.md site/guide/
+          echo "Сборка: ${GITHUB_SHA::7}, ветка ${GITHUB_REF_NAME}, $(date -u '+%Y-%m-%d %H:%M UTC')" > site/BUILD_INFO.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docs-${{ github.ref_name }}
+          path: site
+      # Документация из main публикуется в ветку gh-pages (GitHub Pages)
+      - name: Publish to gh-pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          commit_message: "docs: update for ${{ github.sha }}"
