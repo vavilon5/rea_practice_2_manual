@@ -16,7 +16,9 @@ from calculator.__main__ import main
         ("10 - 4", 6),
         ("3 * 7", 21),
         ("8 / 2", 4.0),
-        ("1.5 + 1", 2.5)
+        ("1.5 + 1", 2.5),
+        ("2 ^ 3", 8),
+        ("7 % 4", 3),
     ],
 )
 def test_evaluate(expression, expected):

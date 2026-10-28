@@ -38,3 +38,21 @@ jobs:
         run: pip install -e . -r requirements-dev.txt
       - name: Unit and integration tests
         run: pytest --cov=calculator --cov-report=term-missing
+
+  automerge:
+    if: github.event_name == 'pull_request' && github.head_ref == 'development'
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Merge pull request
+        run: gh pr merge ${{ github.event.pull_request.number }} --merge
+      # Слияние от имени GITHUB_TOKEN не запускает новые workflow, поэтому запускаем CI на main явно
+      - name: Run CI on main
+        run: gh workflow run main.yml --ref main

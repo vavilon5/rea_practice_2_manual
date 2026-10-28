@@ -2,7 +2,7 @@
 
 import pytest
 
-from calculator import add, divide, multiply, subtract
+from calculator import add, divide, modulo, multiply, power, subtract
 
 
 def test_add():
@@ -25,3 +25,16 @@ def test_divide():
 def test_divide_by_zero():
     with pytest.raises(ZeroDivisionError):
         divide(1, 0)
+
+
+def test_power():
+    assert power(2, 10) == 1024
+
+
+def test_modulo():
+    assert modulo(10, 3) == 1
+
+
+def test_modulo_by_zero():
+    with pytest.raises(ZeroDivisionError):
+        modulo(1, 0)
